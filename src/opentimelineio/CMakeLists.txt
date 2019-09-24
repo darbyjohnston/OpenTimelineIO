@@ -77,8 +77,16 @@ target_include_directories(opentimelineio PUBLIC
 target_link_libraries(opentimelineio PUBLIC opentime)
 set_target_properties(opentimelineio PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
 			MACOSX_RPATH true WINDOWS_EXPORT_ALL_SYMBOLS true)
-install(TARGETS opentimelineio LIBRARY DESTINATION lib)
 
+if (OTIO_PYTHON_INSTALL)
+    add_custom_command(
+        TARGET opentimelineio POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+            $<TARGET_FILE:opentimelineio>
+            ${OTIO_PYTHON_MODULE_CXX_LIBS_DIR}/$<TARGET_FILE_NAME:opentimelineio>)
+endif()
+
+install(TARGETS opentimelineio LIBRARY DESTINATION lib)
 if (NOT OTIO_CXX_NOINSTALL)
     install(FILES ${OPENTIMELINEIO_HEADER_FILES} DESTINATION include/opentimelineio)
 endif (NOT OTIO_CXX_NOINSTALL)

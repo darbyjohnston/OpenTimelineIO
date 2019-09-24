@@ -16,6 +16,15 @@ pybind11_add_module(_otio
 target_include_directories(_otio PUBLIC pybind11/include)
 target_link_libraries(_otio PUBLIC opentimelineio opentime)
 set_target_properties(_otio PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+
+if (OTIO_PYTHON_INSTALL)
+    add_custom_command(
+        TARGET _otio POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+            $<TARGET_FILE:_otio>
+            ${OTIO_PYTHON_MODULE_DIR}/$<TARGET_FILE_NAME:_otio>)
+endif()
+
 if (OTIO_PYTHON_OTIO_DIR)
     install(TARGETS _otio DESTINATION "${OTIO_PYTHON_OTIO_DIR}")
 endif (OTIO_PYTHON_OTIO_DIR)
