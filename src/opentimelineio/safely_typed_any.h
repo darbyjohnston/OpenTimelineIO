@@ -33,8 +33,8 @@ any create_safely_typed_any(std::string&&);
 any create_safely_typed_any(RationalTime&&);
 any create_safely_typed_any(TimeRange&&);
 any create_safely_typed_any(TimeTransform&&);
-any create_safely_typed_any(AnyVector&&);
-any create_safely_typed_any(AnyDictionary&&);
+any create_safely_typed_any(AnyVector&&) noexcept;
+any create_safely_typed_any(AnyDictionary&&) noexcept;
 any create_safely_typed_any(SerializableObject*);
 
 bool safely_cast_bool_any(any const& a);

@@ -38,11 +38,11 @@ any create_safely_typed_any(TimeTransform&& value) {
     return any(value);
 }
 
-any create_safely_typed_any(AnyVector&& value) {
+any create_safely_typed_any(AnyVector&& value) noexcept {
     return any(std::move(value));
 }
 
-any create_safely_typed_any(AnyDictionary&& value) {
+any create_safely_typed_any(AnyDictionary&& value) noexcept {
     return any(std::move(value));
 }
 
