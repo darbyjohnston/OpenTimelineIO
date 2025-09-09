@@ -28,7 +28,7 @@ jobs:
     outputs:
       branch-name: ${{ steps.get-branch-name.outputs.branch-name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Create Branch
         shell: bash
