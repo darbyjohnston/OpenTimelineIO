@@ -130,6 +130,39 @@ class MarkerTest(unittest.TestCase, otio_test_utils.OTIOAssertions):
             "something unknown"
         )
 
+    def test_upgrade_from_2_document(self):
+        """Test that upgrading a version 2 document keeps its marked range."""
+        src = """
+        {
+            "OTIO_SCHEMA" : "Marker.2",
+            "metadata" : {},
+            "name" : null,
+            "marked_range" : {
+                "OTIO_SCHEMA" : "TimeRange.1",
+                "start_time" : {
+                    "OTIO_SCHEMA" : "RationalTime.1",
+                    "rate" : 5,
+                    "value" : 0
+                },
+                "duration" : {
+                    "OTIO_SCHEMA" : "RationalTime.1",
+                    "rate" : 5,
+                    "value" : 0
+                }
+            },
+            "color": "RED"
+        }
+        """
+        marker = otio.adapters.read_from_string(src, "otio_json")
+        self.assertEqual(
+            marker.marked_range,
+            otio.opentime.TimeRange(
+                otio.opentime.RationalTime(0, 5),
+                otio.opentime.RationalTime(0, 5),
+            )
+        )
+        self.assertEqual(marker.color, otio.core.Color.RED)
+
     def test_downgrade_to_2(self):
         """Test color conversion from Color object to a name.
 

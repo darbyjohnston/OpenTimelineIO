@@ -410,7 +410,9 @@ TypeRegistry::_instance_from_schema(
     {
         for (const auto& e: type_record->upgrade_functions)
         {
-            if (schema_version <= e.first
+            // A function registered for version N upgrades from version
+            // N-1, so a document already at N must not run it.
+            if (schema_version < e.first
                 && e.first <= type_record->schema_version)
             {
                 e.second(&dict);

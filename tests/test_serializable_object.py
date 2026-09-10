@@ -216,7 +216,7 @@ class VersioningTests(unittest.TestCase, otio_test_utils.OTIOAssertions):
         ft = otio.core.instance_from_schema("NewStuff", 1, {"foo": "bar"})
         self.assertEqual(ft._dynamic_fields['foo_3'], "bar")
 
-        ft = otio.core.instance_from_schema("NewStuff", 3, {"foo_2": "bar"})
+        ft = otio.core.instance_from_schema("NewStuff", 2, {"foo_2": "bar"})
         self.assertEqual(ft._dynamic_fields['foo_3'], "bar")
 
         ft = otio.core.instance_from_schema("NewStuff", 4, {"foo_3": "bar"})
