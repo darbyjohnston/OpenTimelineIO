@@ -79,7 +79,7 @@ public:
     /// case a schema name is changed and the old name needs to be allowed as well.
     ///
     /// On success, returns true; otherwise, returns false and sets error_status if non-null.
-    bool register_type_from_existing_type(
+    OTIO_API bool register_type_from_existing_type(
         std::string const& schema_name,
         int                schema_version,
         std::string const& existing_schema_name,
